@@ -16,7 +16,7 @@ import { useRegister } from "../api/use-register"
 
 
 export const SignUpCard = () => {
-    const { mutate } = useRegister()
+    const { mutate, isPending } = useRegister()
 
     const form = useForm<z.infer<typeof signUpSchema>>({
         resolver: zodResolver(signUpSchema),
@@ -57,6 +57,7 @@ export const SignUpCard = () => {
                     <Input 
                         type="text"
                         {...field}
+                        disabled={isPending}
                         placeholder="Enter your name"
                     />
                     </FormControl>
@@ -69,6 +70,7 @@ export const SignUpCard = () => {
                     <Input 
                         type="email"
                         {...field}
+                        disabled={isPending}
                         placeholder="Enter email address"
                     />
                     </FormControl>
@@ -82,12 +84,13 @@ export const SignUpCard = () => {
                         type="password"
                         {...field}
                         placeholder="Enter password"
+                        disabled={isPending}
                     />
                     </FormControl>
                     <FormMessage />
                 </FormItem>)}
             />
-            <Button type="submit" size="lg" className="w-full" disabled={false}>Sign up</Button>
+            <Button type="submit" size="lg" className="w-full" disabled={isPending}>Register</Button>
         </form>
         </Form>
       </CardContent>
@@ -95,7 +98,7 @@ export const SignUpCard = () => {
         <Separator />
       </div>
       <CardContent className="p-7 flex flex-col gap-y-4">
-        <Button type="button" variant="secondary" size="lg" className="w-full" disabled={false}>
+        <Button type="button" variant="secondary" size="lg" className="w-full" disabled={isPending}>
             <FcGoogle className="size-5 mr-2" />
             Sign up with Google
         </Button>
